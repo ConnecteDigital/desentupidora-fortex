@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { cidades, cidadePath } from '../data/cidades';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Cidades', path: '/cidades/' },
+];
+---
+
+<Base
+  title="Cidades Atendidas: Desentupidora 24h em BH, Contagem e Betim"
+  description={`Desentupidora 24 horas em Belo Horizonte, Contagem e Betim. Chegamos em até ${site.arrivalMinutes} minutos, com garantia.`}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Cidades atendidas</span>
+      <h1>Desentupidora em BH, Contagem e Betim</h1>
+      <p class="hero-lead">Atendimento 24 horas nas três cidades. Escolha a sua.</p>
+      <CtaButtons />
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container cidades-grid">
+      {
+        cidades.map((c) => (
+          <a class="cidade-card" href={cidadePath(c)}>
+            <Icon name="pin" size={30} />
+            <h2 style="font-size:1.7rem">Desentupidora em {c.nome}</h2>
+            <p>{c.resumo}</p>
+            <span class="service-more">Ver página <Icon name="arrow" size={16} /></span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+  <CtaBand />
+</Base>

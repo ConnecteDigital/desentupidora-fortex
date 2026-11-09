@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CtaButtons from '../components/CtaButtons.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+import { servicos } from '../data/servicos';
+import { cidades } from '../data/cidades';
+import { breadcrumbSchema } from '../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Contato', path: '/contato/' },
+];
+---
+
+<Base
+  title="Contato: Desentupidora 24h em BH | Desentupidora Fortex"
+  description={`Fale com a Desentupidora Fortex pelo WhatsApp ou telefone ${site.phoneDisplay}. Atendimento 24 horas em BH, Contagem e Betim.`}
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Contato</span>
+      <h1>Fale com a Desentupidora Fortex</h1>
+      <p class="hero-lead">O jeito mais rápido é o WhatsApp ou a ligação. Atendemos 24 horas, todos os dias.</p>
+      <CtaButtons />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div>
+        <h2>Atendimento 24 horas</h2>
+        <ul class="contact-list">
+          <li><Icon name="phone" size={22} /> <div><strong>Telefone</strong><br /><a href={site.tel}>{site.phoneDisplay}</a></div></li>
+          <li><Icon name="whatsapp" size={22} /> <div><strong>WhatsApp</strong><br />{site.phoneDisplay}</div></li>
+          <li><Icon name="clock" size={22} /> <div><strong>Horário</strong><br />24 horas, todos os dias, inclusive feriados</div></li>
+          <li><Icon name="pin" size={22} /> <div><strong>Cidades atendidas</strong><br />{cidades.map((c) => c.nome).join(', ')}</div></li>
+        </ul>
+        <p>Se puder, mande uma foto ou um vídeo do entupimento. Assim já saímos com o equipamento certo.</p>
+      </div>
+
+      <form class="contact-form" id="form-contato">
+        <h2 style="font-size:1.6rem;margin:0">Peça pelo WhatsApp</h2>
+        <label>Seu nome<input name="nome" required autocomplete="name" /></label>
+        <label>
+          O que entupiu?
+          <select name="servico">
+            {servicos.map((s) => <option>{s.nome}</option>)}
+          </select>
+        </label>
+        <label>
+          Cidade
+          <select name="cidade">
+            {cidades.map((c) => <option>{c.nome}</option>)}
+          </select>
+        </label>
+        <label>Bairro<input name="bairro" autocomplete="address-level3" /></label>
+        <label>Conte rapidinho o problema<textarea name="detalhes"></textarea></label>
+        <button class="btn btn-wa btn-lg" type="submit"><Icon name="whatsapp" size={22} /> Enviar pelo WhatsApp</button>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script define:vars={{ phone: site.phoneDigits }}>
+  // Monta a mensagem e abre o WhatsApp (sem servidor: nada é armazenado no site).
+  const form = document.getElementById('form-contato');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const linhas = [
+      `Olá! Vim pelo site da Desentupidora Fortex.`,
+      `Nome: ${d.get('nome')}`,
+      `Serviço: ${d.get('servico')}`,
+      `Local: ${[d.get('bairro'), d.get('cidade')].filter(Boolean).join(', ')}`,
+    ];
+    if (d.get('detalhes')) linhas.push(`Detalhes: ${d.get('detalhes')}`);
+    const url = `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(linhas.join('\n'))}`;
+    (window.dataLayer = window.dataLayer || []).push({ event: 'contato_whatsapp_formulario' });
+    window.open(url, '_blank', 'noopener');
+  });
+</script>

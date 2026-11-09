@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaButtons from '../../components/CtaButtons.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { site } from '../../data/site';
+import { servicos } from '../../data/servicos';
+import { breadcrumbSchema } from '../../data/schema';
+
+const crumbs = [
+  { name: 'Início', path: '/' },
+  { name: 'Serviços', path: '/servicos/' },
+];
+---
+
+<Base
+  title="Serviços de Desentupimento 24h em BH | Desentupidora Fortex"
+  description="Desentupimento de pia, vaso sanitário, ralo, esgoto e cano em BH, Contagem e Betim. Atendimento 24h, sem quebra-quebra e com garantia."
+  schema={[breadcrumbSchema(crumbs)]}
+>
+  <section class="hero page-hero">
+    <div class="container">
+      <Breadcrumbs items={crumbs} />
+      <span class="eyebrow">Serviços</span>
+      <h1>Serviços de desentupimento</h1>
+      <p class="hero-lead">Só desentupimento, feito por quem entende: 24 horas em BH, Contagem e Betim, com chegada em até {site.arrivalMinutes} minutos e garantia.</p>
+      <CtaButtons />
+    </div>
+  </section>
+  <section class="section section-soft">
+    <div class="container">
+      <div class="services-grid">
+        {servicos.map((s) => <ServiceCard servico={s} />)}
+      </div>
+    </div>
+  </section>
+  <CtaBand />
+</Base>
