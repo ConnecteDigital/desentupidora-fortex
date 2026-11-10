@@ -1,5 +1,5 @@
-// Gera imagens PROVISÓRIAS (fundo do topo, logo e imagem de compartilhamento).
-// Quando chegarem o logo e a foto reais, substitua src/assets/logo.png e src/assets/hero.jpg.
+// Gera a imagem de fundo PROVISÓRIA do topo (src/assets/hero.jpg).
+// Quando chegar a foto real, basta substituir src/assets/hero.jpg.
 import sharp from 'sharp';
 const W=1920,H=1080;
 // fundo provisório: parede de azulejo, canos e ralo com água, luz lateral
@@ -36,21 +36,3 @@ ${pipe('M300 -20 V 180','46','url(#pvv)')}
 <rect width="${W}" height="${H}" fill="url(#luz2)"/>
 </svg>`;
 await sharp(Buffer.from(hero)).jpeg({quality:80,mozjpeg:true,progressive:true}).toFile('src/assets/hero.jpg');
-// logo provisório
-const logo=`<svg xmlns="http://www.w3.org/2000/svg" width="720" height="200" viewBox="0 0 720 200">
-<rect x="8" y="20" width="160" height="160" rx="36" fill="#1662e8"/>
-<path d="M88 46C88 46 48 96 48 122a40 40 0 0 0 80 0c0-26-40-76-40-76z" fill="#fff"/>
-<path d="M70 124a18 18 0 0 0 18 18" stroke="#1662e8" stroke-width="10" fill="none" stroke-linecap="round"/>
-<text x="196" y="112" font-family="Arial Black, Arial, sans-serif" font-weight="900" font-size="96" fill="#ffffff" letter-spacing="2">FORTEX</text>
-<text x="200" y="164" font-family="Arial, sans-serif" font-weight="700" font-size="38" fill="#5fd0ff" letter-spacing="11">DESENTUPIDORA</text>
-</svg>`;
-await sharp(Buffer.from(logo)).png().toFile('src/assets/logo.png');
-await sharp(Buffer.from(logo)).png().toFile('public/logo.png');
-// imagem de compartilhamento
-const og=`<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><rect width="1200" height="630" fill="#0a1a3c"/>
-<text x="80" y="300" font-family="Arial Black, Arial" font-weight="900" font-size="72" fill="#fff">DESENTUPIDORA 24H</text>
-<text x="80" y="380" font-family="Arial" font-weight="700" font-size="44" fill="#5fd0ff">BH · Contagem · Betim</text>
-<text x="80" y="460" font-family="Arial" font-size="34" fill="#c7d6f2">Pia, vaso, ralo, esgoto e cano</text></svg>`;
-const ogBuf=await sharp(Buffer.from(og)).png().toBuffer();
-const logoSmall=await sharp('src/assets/logo.png').resize(430).toBuffer();
-await sharp(ogBuf).composite([{input:logoSmall,left:80,top:90}]).jpeg({quality:85}).toFile('public/og.jpg');
