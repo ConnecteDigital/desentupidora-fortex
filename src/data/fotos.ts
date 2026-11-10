@@ -5,11 +5,11 @@ import type { ImageMetadata } from 'astro';
 const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/fotos/*.jpg', { eager: true });
 
 const alts: Record<string, string> = {
-  'desentupimento-de-pia': 'Desentupimento de pia de cozinha feito pela Desentupidora Fortex',
-  'desentupimento-de-vaso-sanitario': 'Desentupimento de vaso sanitário feito pela Desentupidora Fortex',
-  'desentupimento-de-ralo': 'Desentupimento de ralo de banheiro feito pela Desentupidora Fortex',
-  'desentupimento-de-esgoto': 'Desentupimento de rede de esgoto com máquina feito pela Desentupidora Fortex',
-  'desentupimento-de-cano': 'Desentupimento de cano com máquina de cabo rotativo pela Desentupidora Fortex',
+  'desentupimento-de-pia': 'Técnico da Desentupidora Fortex passando cabo de máquina no ralo de uma pia de cozinha',
+  'desentupimento-de-vaso-sanitario': 'Técnico desentupindo vaso sanitário com máquina de cabo rotativo',
+  'desentupimento-de-ralo': 'Desentupimento de ralo de piso com mangueira de máquina desentupidora',
+  'desentupimento-de-esgoto': 'Técnico desentupindo rede de esgoto pela caixa de inspeção com máquina',
+  'desentupimento-de-cano': 'Técnico passando cabo de aço por dentro de cano de esgoto aberto',
 };
 
 export interface Foto {

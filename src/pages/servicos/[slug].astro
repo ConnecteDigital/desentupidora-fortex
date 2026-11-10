@@ -62,7 +62,7 @@ const msg = `Olá! Vim pelo site e preciso de ${servico.nome.toLowerCase()}.`;
         {
           foto && (
             <figure class="service-figure">
-              <Image src={foto.src} alt={foto.alt} widths={[480, 800, 1100]} sizes="(max-width: 960px) 100vw, 760px" />
+              <Image src={foto.src} alt={foto.alt} widths={[400, 512]} sizes="(max-width: 600px) 100vw, 512px" />
               <figcaption>{servico.nome}: serviço realizado pela Desentupidora Fortex.</figcaption>
             </figure>
           )

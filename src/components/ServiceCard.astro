@@ -16,7 +16,7 @@ const foto = fotoDoServico(servico.slug);
   {
     foto ? (
       <span class="service-photo">
-        <Image src={foto.src} alt={foto.alt} widths={[320, 480, 640]} sizes="(max-width: 600px) 100vw, 300px" />
+        <Image src={foto.src} alt={foto.alt} widths={[320, 480, 512]} sizes="(max-width: 600px) 100vw, 300px" />
       </span>
     ) : (
       <span class="service-photo service-photo-empty">

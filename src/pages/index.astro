@@ -8,6 +8,7 @@ import Icon from '../components/Icon.astro';
 import { Image } from 'astro:assets';
 import heroImg from '../assets/hero.jpg';
 import { site } from '../data/site';
+import { fotoDoServico } from '../data/fotos';
 import { servicos } from '../data/servicos';
 import { cidades, cidadePath } from '../data/cidades';
 import { faqSchema } from '../data/schema';
@@ -40,6 +41,8 @@ const faq = [
   },
 ];
 
+const fotoEquipe = fotoDoServico('desentupimento-de-vaso-sanitario');
+
 const posts = (await getCollection('blog'))
   .sort((a, b) => b.data.data.getTime() - a.data.data.getTime())
   .slice(0, 3);
@@ -55,7 +58,7 @@ const posts = (await getCollection('blog'))
       class="hero-bg"
       src={heroImg}
       alt=""
-      widths={[480, 800, 1200, 1600, 1920]}
+      widths={[480, 800, 1200, 1440]}
       sizes="100vw"
       loading="eager"
       fetchpriority="high"
@@ -120,7 +123,15 @@ const posts = (await getCollection('blog'))
   </section>
 
   <section class="section">
-    <div class="container">
+    <div class="container about-grid">
+      {
+        fotoEquipe && (
+          <div class="about-photo">
+            <Image src={fotoEquipe.src} alt={fotoEquipe.alt} widths={[400, 512]} sizes="(max-width: 900px) 100vw, 460px" />
+          </div>
+        )
+      }
+      <div>
       <div class="section-head">
         <span class="eyebrow">Por que a Desentupidora Fortex</span>
         <h2>Desentupidora de confiança, a qualquer hora</h2>
@@ -143,6 +154,7 @@ const posts = (await getCollection('blog'))
           <Icon name="shield" size={30} />
           <div><h3>Garantia no serviço</h3><p>Todo desentupimento sai com garantia. Se voltar a entupir, voltamos para resolver.</p></div>
         </div>
+      </div>
       </div>
     </div>
   </section>
