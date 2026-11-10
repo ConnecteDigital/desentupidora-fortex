@@ -8,7 +8,7 @@ Site da Desentupidora Fortex (BH, Contagem e Betim). Astro estático, publicado 
 |---|---|
 | Telefone / WhatsApp (o mesmo número vale para os dois botões) | `src/data/site.ts` → `PHONE_DIGITS` (55 + DDD + número) |
 | Logo | substituir `src/assets/logo.png` e `public/logo.png` |
-| Imagem de fundo do topo (fica escurecida automaticamente) | substituir `src/assets/hero.jpg` (hoje é a foto do esgoto) |
+| Imagem de fundo do topo (fica escurecida automaticamente) | substituir `src/assets/hero.jpg` (original em `design/fundo-inicio-original.png`) |
 | Tempo de chegada | `src/data/site.ts` → `arrivalMinutes` |
 | Domínio | `src/data/site.ts` → `url`, `astro.config.mjs` e `public/robots.txt` |
 | Google Tag Manager | `src/data/site.ts` → `gtmId` |
